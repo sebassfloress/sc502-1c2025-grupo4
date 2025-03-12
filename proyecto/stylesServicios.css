@@ -43,9 +43,13 @@ nav ul li a {
     font-weight: bold;
     padding: 10px;
     display: block;
+    transition: background-color 0.3s ease-in-out; /* Transición */
+    transition: transform 0.3s ease-in-out;
 }
-nav ul li a.activo {
-    color: #007bff;
+
+nav a:hover {
+    color:  #007AFF; /* Cambio de color del texto al pasar el ratón */
+    transform: scale(1.1);
 }
 .banner {
     background: url('img/banner-fondo.jpg') center/cover no-repeat;
