@@ -1,5 +1,4 @@
 <?php
-// Cargar clases de PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,7 +6,6 @@ require 'phpmailer/PHPMailer.php';
 require 'phpmailer/SMTP.php';
 require 'phpmailer/Exception.php';
 
-// 🔗 Conexión a la base de datos
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -18,28 +16,25 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// 📝 Obtener datos del formulario
 $nombre = $_POST['nombre'] ?? '';
 $correo = $_POST['email'] ?? '';
 $telefono = $_POST['telefono'] ?? '';
 $tipo_acero = $_POST['acero'] ?? '';
 $info = $_POST['info'] ?? '';
 
-// 💾 Insertar en base de datos
 $sql = "INSERT INTO cotizaciones (nombre, correo, telefono, tipo_acero, informacion)
         VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssss", $nombre, $correo, $telefono, $tipo_acero, $info);
 
 if ($stmt->execute()) {
-    // 📧 Enviar correo con PHPMailer
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'byxdyl@gmail.com';       // ← CAMBIÁ ESTO
-        $mail->Password = 'rybrlvnirqxilmov';              // ← CAMBIÁ ESTO
+        $mail->Username = 'byxdyl@gmail.com';       
+        $mail->Password = 'rybrlvnirqxilmov';            
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
@@ -54,12 +49,12 @@ if ($stmt->execute()) {
                          "Tipo de Acero: $tipo_acero\n" .
                          "Información Adicional: $info";
 
-        $mail->send(); // enviar el correo
+        $mail->send();
     } catch (Exception $e) {
         echo "⚠️ Error al enviar el correo: {$mail->ErrorInfo}";
     }
 
-    // ✅ Redirigir de vuelta al formulario
+   
     header("Location: indexContacto.html");
     exit();
 } else {
