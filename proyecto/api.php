@@ -43,8 +43,8 @@ if ($stmt->execute()) {
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('TU_CORREO@gmail.com', 'Aceros Griegos');
-        $mail->addAddress('financiero@acerosgriegos.cr', 'Departamento Financiero');
+        $mail->setFrom('byxdyl@gmail.com', 'Aceros Griegos');
+        $mail->addAddress('byxdyl@gmail.com', 'Departamento Financiero');
 
         $mail->Subject = "Nueva Cotización de $nombre";
         $mail->Body    = "Se ha recibido una nueva solicitud de cotización:\n\n" .
